@@ -1,0 +1,7 @@
+{
+  "name": "1-cli-interactive-sort",
+  "version": "1.0.0",
+  "author": "Vsevolod Kalinbet ",
+  "license": "ISC",
+  "main": "index.js"
+}
