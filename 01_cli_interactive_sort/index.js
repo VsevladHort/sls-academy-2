@@ -15,7 +15,7 @@ function finishWorkflow() {
     isWorking = false;
 }
 
-function promprtCommand() {
+function promptCommand() {
     console.log(`1. Sort words alphabetically
 2. Show numbers from lesser to greater
 3. Show numbers from bigger to smaller
@@ -25,26 +25,71 @@ function promprtCommand() {
 - exit`);
 }
 
+function sortWordsAlphabetically() {
+    console.log(words.sort((a, b) => {
+        return a.toLowerCase().localeCompare(b.toLowerCase());
+    }));
+}
+
+function showNums(order) {
+    if (order === "lesser") {
+        console.log(numbers.sort((a, b) => {
+            return a - b;
+        }));
+    } else if (order === "greater") {
+        console.log(numbers.sort((a, b) => {
+            return b - a;
+        }));
+    }
+}
+
+function showWordsByNumOfLetters() {
+    console.log(words.sort((a, b) => {
+        return a.length - b.length;
+    }));
+}
+
+function showUniqueWords() {
+    console.log(words.filter((el, i, arr) => {
+        return i === arr.indexOf(el);
+    }));
+}
+
+function showUniqueTokens() {
+    console.log(words.filter((el, i, arr) => {
+        return i === arr.indexOf(el);
+    }));
+    console.log(numbers.filter((el, i, arr) => {
+        return i === arr.indexOf(el);
+    }));
+}
+
 function handleInputCommand(line) {
     let wasIllegalCommandEntered = false;
     switch (line) {
         case "1":
+            sortWordsAlphabetically();
             break;
         case "2":
+            showNums("lesser");
             break;
         case "3":
+            showNums("greater")
             break;
         case "4":
+            showWordsByNumOfLetters();
             break;
         case "5":
+            showUniqueWords();
             break;
         case "6":
+            showUniqueTokens();
             break;
         case "exit":
             finishWorkflow();
             break;
         default:
-            promprtCommand();
+            promptCommand();
             console.log("You have entered an illegal command, please repeat. For termination enter 'exit'");
             wasIllegalCommandEntered = true;
             break;
@@ -58,13 +103,13 @@ function handleInputCommand(line) {
 function handleDataAcquisition(line) {
     const splitInput = line.split(" ");
     words = splitInput.filter((x) => {
-        isNaN(parseFloat(x))
+        return isNaN(parseFloat(x))
     });
     numbers = splitInput.filter((x) => {
-        !isNaN(parseFloat(x))
-    });
+        return !isNaN(parseFloat(x))
+    }).map((x) => parseFloat(x));
     hasData = true;
-    promprtCommand();
+    promptCommand();
 }
 
 rl.on("line", (line) => {
