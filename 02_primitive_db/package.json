@@ -3,8 +3,12 @@
   "version": "1.0.0",
   "author": "Vsevolod Kalinbet ",
   "license": "ISC",
-  "main": "index.js",
+  "exports": "./index.js",
   "dependencies": {
     "inquirer": "^9.2.7"
+  },
+  "type": "module",
+  "engines": {
+    "node": ">=16"
   }
 }
