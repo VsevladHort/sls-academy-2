@@ -1,14 +1,8 @@
-import * as fs from "fs";
 import TelegramBot from "node-telegram-bot-api";
 import {program} from "commander";
+import {readEnvVar} from "./utils.js";
 
-function readEnvVar(encoding) {
-    const contents = fs.readFileSync(".env").toString(encoding);
-    contents.split("\n").forEach(x => {
-        const splitX = x.split("=");
-        process.env[splitX[0]] = splitX[1].trim();
-    });
-}
+process.env["NTBA_FIX_350"] = "1";
 
 readEnvVar("utf8");
 
