@@ -1,5 +1,6 @@
 import {readEnvVar} from "../03_telegram_console_sender/utils.js";
 import TelegramBot from "node-telegram-bot-api";
+import {getWeather} from "./weather-getter.js";
 
 readEnvVar("utf8");
 
@@ -7,7 +8,7 @@ const bot = new TelegramBot(process.env.BOT_TOKEN, {polling: true});
 
 bot.onText(/\/start/, async (msg) => {
     try {
-        await bot.sendMessage(msg.chat.id, "Welcome, may i interest you in weather in Zaporizhzhia?", {
+        await bot.sendMessage(msg.chat.id, "Welcome, may I interest you in weather in Zaporizhzhia?", {
             "reply_markup": {
                 "keyboard": [["Forecast in Zaporizhzhia"]]
             }
@@ -31,7 +32,9 @@ bot.onText(/Forecast in Zaporizhzhia/, async (msg) => {
 
 bot.onText(/3 hour intervals/, async (msg) => {
     try {
+        const data = await getWeather(47.85798310486448, 35.10416614231084, false);
         await bot.sendMessage(msg.chat.id, "Wonderful, here is the weather forecast in 3-hour intervals!");
+        await bot.sendMessage(msg.chat.id, data);
         await bot.sendMessage(msg.chat.id, "Would you like to receive a new update on weather in Zaporizhzhia?", {
             "reply_markup": {
                 "keyboard": [["Forecast in Zaporizhzhia"]]
@@ -44,7 +47,9 @@ bot.onText(/3 hour intervals/, async (msg) => {
 
 bot.onText(/6 hour intervals/, async (msg) => {
     try {
+        const data = await getWeather(47.85798310486448, 35.10416614231084, true);
         await bot.sendMessage(msg.chat.id, "Wonderful, here is the weather forecast in 6-hour intervals!");
+        await bot.sendMessage(msg.chat.id, data);
         await bot.sendMessage(msg.chat.id, "Would you like to receive a new update on weather in Zaporizhzhia?", {
             "reply_markup": {
                 "keyboard": [["Forecast in Zaporizhzhia"]]
