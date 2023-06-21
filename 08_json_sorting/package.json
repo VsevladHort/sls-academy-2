@@ -1,0 +1,11 @@
+{
+  "name": "08_json_sorting",
+  "version": "1.0.0",
+  "author": "Vsevolod Kalinbet ",
+  "license": "ISC",
+  "exports": "./index.js",
+  "type": "module",
+  "engines": {
+    "node": ">=16"
+  }
+}
